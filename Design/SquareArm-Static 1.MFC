@@ -1,0 +1,16 @@
+[StartTime]
+SquareArm-Static 1.MFC=1s
+[SolverState]
+SquareArm-Static 1.MFC=2
+[MainFrame]
+SquareArm-Static 1.MFC=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPMADAAAAADLBAAAAAEHEAAAAAGICAAAAA
+[ShowMin]
+SquareArm-Static 1.MFC=No
+[SolverType]
+SquareArm-Static 1.MFC=Linear Analysis
+[StudyType]
+SquareArm-Static 1.MFC=0
+[StudyName]
+SquareArm-Static 1.MFC=Static 1
+[Solver]
+SquareArm-Static 1.MFC=Sparse
