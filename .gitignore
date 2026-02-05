@@ -1,10 +1,9 @@
 # MATLAB
 *.asv
 *.autosave
-slprj/
 
-# Results
-Results/
+
+
 
 # Data
 
