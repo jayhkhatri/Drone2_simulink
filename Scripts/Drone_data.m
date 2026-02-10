@@ -18,6 +18,7 @@ Environment.UnderwaterTransitionSpeed= 0.1;
 Environment.AirTransitionAgularSpeed = 0.1;
 Environment.UnderwaterTransitionAngularSpeed = 0.01;
 %% simulation data
+
 Environment.Simulation.Runtime = 500;
 Environment.Simulation.GlobalSteptime = 0.001; % must be in multiple of local
 Environment.Simulation.LocatSteptime = 0.001; % must be lower or same as global
