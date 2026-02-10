@@ -7,7 +7,7 @@
 
 # Data
 
-*.fig
+#*.fig
 
 # Images
 #*.tif
