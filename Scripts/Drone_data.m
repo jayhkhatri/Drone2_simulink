@@ -63,8 +63,8 @@ Vehicle.Thruster.MaxForwardThrust = 60; %N
 Vehicle.Thruster.MaxReverseThrust = 55; %N
 
 %% syringe motion parameters
-Vehicle.Syringe.Damping = 50; % N/(m/s)  20 ideal
-Vehicle.Syringe.Stiffness = 500; % N/m
+Vehicle.Syringe.Damping = 10;%50; % N/(m/s)  20 ideal
+Vehicle.Syringe.Stiffness = 200;%500; % N/m
 Vehicle.Syringe.Front.minpos = 0.005; %m
 Vehicle.Syringe.Front.maxpos = 0.1; %m
 Vehicle.Syringe.Front.Optpos = 0.046;%0.045;%0.039805; %m 0.031

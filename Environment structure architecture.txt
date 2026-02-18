@@ -1,0 +1,21 @@
+Environment
+│
+├── Terrain
+│       Water surface
+│       Ocean floor / lake bed
+│
+├── Static obstacles
+│       Rocks
+│       Pillars
+│       Structures
+│
+├── Dynamic obstacles
+│       Other drones
+│       Fish / vehicles / objects
+│
+├── Reference markers
+│       Beacons
+│       Gates
+│       Waypoints
+│
+└── Lighting & physics layers
