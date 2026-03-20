@@ -207,7 +207,7 @@ Vehicle.Water.Resistance.Cx = 0.8;
 Vehicle.Water.Resistance.Cy = 2.5;
 Vehicle.Water.Resistance.Cz = 1;
 Vehicle.Water.Resistance.Ck = 0.8;
-Vehicle.Water.Resistance.Cm = 10;%1.2
+Vehicle.Water.Resistance.Cm = 10;%50;%10;%1.2
 Vehicle.Water.Resistance.Cn = 1.8;
 
 Vehicle.Air.LinearResistance.Cx = 0.002;
@@ -228,7 +228,7 @@ Vehicle.Water.LinearResistance.Cn = 1.5; %150;
 Environment.Ocean.cdx = 1;  % between 0.8 to 1.2
 Environment.Ocean.cdy = 1;
 Environment.Ocean.cdz = 1;
-Environment.OceanCurrentFile = load('jonswap_params100.mat');
+Environment.OceanCurrentFile = load('jonswap_params100_new.mat'); % use 'jonswap_params100.mat' file for low velocity oceancurrrent
 A = Bus_element(Environment.OceanCurrentFile);
 
 %% Wind Disturbance
