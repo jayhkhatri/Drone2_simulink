@@ -1,5 +1,5 @@
 function exportFigure(filename)
-
+filename = char(filename);
 global FIG_SAVE_PATH
 
 % ensure folder exists

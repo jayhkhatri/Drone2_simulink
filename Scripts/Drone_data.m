@@ -52,7 +52,7 @@ Vehicle.Dist.CGtoBottom = 0.082; % m
 Vehicle.Dist.CGtoTop = round(Vehicle.Body.Hulldiameter-Vehicle.Dist.CGtoBottom,4); % m
 
 %% motor and thruster parameters
-Vehicle.Motor.Stiffness = 10; % N.m/degree
+Vehicle.Motor.Stiffness = 11.2; % N.m/degree
 Vehicle.Motor.Damping = 200; % N.m/(degree/sec)
 Vehicle.Motor.Maxtorque = 1.75; %N.m
 Vehicle.Motor.MaxThrust = 45 ; %N

@@ -1,7 +1,7 @@
 function plotReducedSignal(x,y,N,linetype,linewidth,xlab,ylab,legtext,filename)
 
 global basepath
-
+filename = char(filename);
 
 if ~exist(basepath,'dir')
     mkdir(basepath)
@@ -57,9 +57,45 @@ ylabel(ylab,'FontSize',44)
 set(gca,'SortMethod','childorder')
 set(gcf,'Renderer','painters')
 
+
+% if ~isempty(filename)
+%     [filepath,name,ext] = fileparts(filename);
+% 
+%     if isempty(ext)
+%         ext = '.fig';
+%     end
+% 
+%     if isempty(filepath)
+%         if isempty(basepath)
+%             warning("No basepath provided. file will not be saved.");
+%             return;
+%         end
+% 
+%     else
+%         savepath = fullfile(filepath,[name ext]);
+%     end
+% 
+%     folder = fileparts(savepath);
+%     if isempty(folder)
+%         warning("folder path empty. FIll will not be saved");
+%         return
+%     end
+%     if ~exist(folder,'dir')
+%         mkdir(folder)
+%     end
+% 
+%     savefig(fig,savepath,"compact");
+% end
+
+
 savePath = fullfile(basepath,[name,'.fig']);
 
 folder = fileparts(savePath);
+    if isempty(folder)
+        warning("folder path empty. FIll will not be saved");
+        return
+    end
+
 if ~exist(folder,'dir')
     mkdir(folder)
 end
