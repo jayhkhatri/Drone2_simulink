@@ -25,7 +25,7 @@ Environment.Simulation.LocatSteptime = 0.001; % must be lower or same as global
 
 %% vehicle data
 % Vehicle initial condition
-Vehicle.InitCond.position = [0 0 -2.5];                    % m
+Vehicle.InitCond.position = [0 0 -0.1];                    % m
 Vehicle.InitCond.velocity = [0 0 0];                    % m/s
 Vehicle.InitCond.EulerXYZ = [0 0 0];                    % deg [roll,pitch,yaw]
 Vehicle.InitCond.rotates = [0 0 0];                    % rad/s
@@ -228,7 +228,7 @@ Vehicle.Water.LinearResistance.Cn = 1.5; %150;
 Environment.Ocean.cdx = 1;  % between 0.8 to 1.2
 Environment.Ocean.cdy = 1;
 Environment.Ocean.cdz = 1;
-Environment.OceanCurrentFile = load('jonswap_params100_new.mat'); % use 'jonswap_params100.mat' file for low velocity oceancurrrent
+Environment.OceanCurrentFile = load('jonswap_params100.mat'); % use 'jonswap_params100.mat' file for low velocity oceancurrrent
 A = Bus_element(Environment.OceanCurrentFile);
 
 %% Wind Disturbance
@@ -240,7 +240,7 @@ Environment.Wind.cdz = 0.1;
 
 
 %% taget data
-Vehicle.Target.z = -5;
+Vehicle.Target.z = -4;
 Vehicle.Target.pitch =0;
 Vehicle.Target.v.w = 0;
 Vehicle.Target.dwbdt.pitchrate = 0;

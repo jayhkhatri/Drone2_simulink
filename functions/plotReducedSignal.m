@@ -29,7 +29,7 @@ plot(x(idx),y(idx),linetype,'LineWidth',linewidth,'DisplayName',legtext)
 %% axis formating
 ax = gca;
 
-ax.FontSize = 40;          % axis font size
+ax.FontSize = 22;          % axis font size
 ax.FontName = 'Times New Roman';
 
 ax.XMinorGrid = 'off';      % minor grid
@@ -41,18 +41,32 @@ ax.MinorGridAlpha = 0.25;
 %% legend formating
 
 lgd = legend;
+n = numel(lgd.String);
+if n>2
+    lgd.NumColumns =3;
+    lgd.Orientation = "horizontal";
+    lgd.Location ='northoutside';
+
+else
+    lgd.NumColumns=1;
+    lgd.Orientation = "vertical";
+    lgd.Location = "best";
+end
+
 lgd.Interpreter = "tex";
-lgd.FontSize = 36;
+lgd.FontSize = 18;
 lgd.FontName = 'Times New Roman';
-lgd.Location ='best';
+% lgd.Orientation = "horizontal";
+% lgd.NumColumns = 2;
+% lgd.Location ='northoutside';
 
 
 
 
 grid on
 
-xlabel(xlab,'FontSize',44)
-ylabel(ylab,'FontSize',44)
+xlabel(xlab,'FontSize',24)
+ylabel(ylab,'FontSize',24)
 
 set(gca,'SortMethod','childorder')
 set(gcf,'Renderer','painters')
