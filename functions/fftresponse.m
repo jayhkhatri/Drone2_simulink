@@ -51,15 +51,15 @@ p(2:end-1) = 2*p(2:end-1);
 f = FS*(0:(N/2))/N;
 
 %% plotiing fft
-% if newfig == true
-%     figure()
-%     plotReducedSignal(f,p,N,linetype,linewidth,'Frequency (Hz)','Amplitude',legend,filename);
-%     pause(5)
-%     close()
-% else
-%     openfig(fullfile(basepath,[char(filename),'.fig']),"reuse");
-%     plotReducedSignal(f,p,N,linetype,linewidth,'Frequency (Hz)','Amplitude',legend,filename);
-% end
+if newfig == true
+    figure()
+    plotReducedSignal(f,p,N,linetype,linewidth,'Frequency (Hz)','Amplitude',legend,filename);
+    pause(5)
+    close()
+else
+    openfig(fullfile(basepath,[char(filename),'.fig']),"reuse");
+    plotReducedSignal(f,p,N,linetype,linewidth,'Frequency (Hz)','Amplitude',legend,filename);
+end
 
 
 OA = std(u_ref);  %% oscilatiopn amplitude  higher value more chattring

@@ -2,8 +2,8 @@ global basepath FIG_SAVE_PATH;
 
 proj = currentProject;
 path = proj.RootFolder;
-basepath = fullfile(proj.RootFolder,'Results','fig','2026','May','02052026');
-FIG_SAVE_PATH = fullfile(proj.RootFolder,'Results','epspdf','2026','May','02052026');
+basepath = fullfile(proj.RootFolder,'Results','fig','2026','May','04052026');
+FIG_SAVE_PATH = fullfile(proj.RootFolder,'Results','epspdf','2026','May','04052026');
 MATfilePath = fullfile(proj.RootFolder,"Results","MAT");
 
 Newfig = 0;
@@ -21,7 +21,7 @@ save(fullfile(MATfilePath, filename), 'out');
 % file_name = "Results1_with_SimpleBackstepping_20260502_144103.mat";
 file_name = "Results_with_New_STA_Controller_20260502_131828.mat";
 %'Results_with_SimpleBackstepping_20260502_115955.mat'
-
+% file_name = "Results1_with_SimpleBackstepping_20260504_105839.mat";
 file = fullfile(MATfilePath,file_name);
 AA = load(file);
 
@@ -99,7 +99,7 @@ s2 = out.data.Buoyancy.Syringe.SyringeB.Pose.Data;
 
 %% plotiing function basic data
 N = 1201; % sample points
-type = 'With STA}';
+type = 'With BS}';
 
 %% plotting error plot
 filename = "Error_Plot_BS";
@@ -196,19 +196,19 @@ exportFigure(filename)
 close()
 %% ld and b tracting
 
-filename = 'ld tracking_STA';
+filename = 'ld tracking_BS';
 
 figure('Units','normalized','OuterPosition',[0 0 1 1])
 plotReducedSignal(t,ld1,N,'-k',2,'Time (sec)','Pose (m)',sprintf('%s %s','ld Front Left_{',type),filename);
 plotReducedSignal(t,ld1,N,'--b',2,'Time (sec)','Pose (m)',sprintf('%s %s','ld Front Right_{',type),filename);
 plotReducedSignal(t,ld2,N,'-.r',2,'Time (sec)','Pose (m)',sprintf('%s %s','ld Rear_{',type),filename);
 %%
-filename = 'b tracking_STA';
+filename = 'b tracking_BS';
 
 figure('Units','normalized','OuterPosition',[0 0 1 1])
-plotReducedSignal(t,b1,N,'--k',2,'Time (sec)','Pose (m)',sprintf('%s %s','b Front Left_{',type),filename);
-plotReducedSignal(t,b1,N,'--m',2,'Time (sec)','Pose (m)',sprintf('%s %s','b Front Right_{',type),filename);
-plotReducedSignal(t,b2,N,':r',2,'Time (sec)','Pose (m)',sprintf('%s %s','b Rear_{',type),filename);
+plotReducedSignal(t,b1,N,'-k',2,'Time (sec)','Pose (m)',sprintf('%s %s','b Front Left_{',type),filename);
+plotReducedSignal(t,b1,N,'--b',2,'Time (sec)','Pose (m)',sprintf('%s %s','b Front Right_{',type),filename);
+plotReducedSignal(t,b2,N,'-r',2,'Time (sec)','Pose (m)',sprintf('%s %s','b Rear_{',type),filename);
 
 
 %% Syringe tracking
@@ -239,15 +239,16 @@ filename = 'fftresponse';
 % [HF_ratio_STAf1, OA_STAf1, zcr_STAf1, DE_STAf1] = fftresponse(u1,1000,thresold,'-k',3,'FFT STAf1',filename,Newfig);
 % [HF_ratio_STAf2, OA_STAf2, zcr_STAf2, DE_STAf2] = fftresponse(u1,1000,thresold,'--b',3,'FFT STAf2',filename,false);
 % [HF_ratio_STAr, OA_STAr, zcr_STAr, DE_STAr] = fftresponse(u2,1000,thresold,'-r',3,'FFT STAr',filename,false);
-[HF_ratio_BSf1, OA_BSf1, zcr_BSf1, DE_BSf1] = fftresponse(u1,1000,thresold,'--k',3,'FFT BSf1',filename,Newfig);
-[HF_ratio_BSf2, OA_BSf2, zcr_BSf2, DE_BSf2] = fftresponse(u1,1000,thresold,'--g',3,'FFT BSf2',filename,Newfig);
-[HF_ratio_BSr, OA_BSr, zcr_BSr, DE_BSr] = fftresponse(u2,1000,thresold,':r',3,'FFT BSr',filename,Newfig);
+[HF_ratio_BSf1, OA_BSf1, zcr_BSf1, DE_BSf1] = fftresponse(u1,1000,thresold,'--k',3,'FFT BSf1',filename,Newfig)
+[HF_ratio_BSf2, OA_BSf2, zcr_BSf2, DE_BSf2] = fftresponse(u1,1000,thresold,'--g',3,'FFT BSf2',filename,Newfig)
+[HF_ratio_BSr, OA_BSr, zcr_BSr, DE_BSr] = fftresponse(u2,1000,thresold,':r',3,'FFT BSr',filename,Newfig)
 
 
 % [HF_ratio_BS1, OA_BS1, zcr_BS1, DE_BS1] = fftresponse(u1,1000,0.01,'--m',3,'FFT BS',filename,Newfig);
 
 %% 
 exportFigure(filename);
+
 %% for taking zoom option
 ax = gca;
 
@@ -280,6 +281,11 @@ ylim([y1 y2])
 
 set(ax2,'FontSize',20)
 
+%%
 
-% RMSE_BS = compute_rmse(Zm,zdesired);
-% Smoothness_STA = smoothness_second_diff(Zm);
+ZRMSE_BS = compute_rmse(Zm,zdesired)
+PRMSE_BS = compute_rmse(pitch,zeros(length(pitch),1))
+ZSmoothness_STA2 = smoothness_second_diff(ZC)
+ZSmoothness_STA1 = smoothness_diff(ZC)
+PSmoothness_STA2 = smoothness_second_diff(PC)
+PSmoothness_STA1 = smoothness_diff(PC)
