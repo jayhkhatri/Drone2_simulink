@@ -4,14 +4,14 @@ function generate_jonswap_velocity_3D()
 rng(42); % For repeatability
 
 % Parameters
-Hs = 0.5;         % Significant wave height [m]
+Hs = 0.2;         % Significant wave height [m]
 Tp = 6;           % Peak period [s]
 g = 9.81;         % Gravity [m/s^2]
 gamma = 3.3;      % JONSWAP peak enhancement factor
 N = 100;          % Number of frequency components
 h = 10;           % Water depth [m]
 z = -1;           % Depth below surface [m]
-t_end = 30;       % Duration [s]
+t_end = 1000;       % Duration [s]
 dt = 0.01;        % Time step [s]
 t = 0:dt:t_end;
 

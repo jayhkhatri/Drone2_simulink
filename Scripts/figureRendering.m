@@ -2,11 +2,11 @@ global basepath FIG_SAVE_PATH;
 
 proj = currentProject;
 path = proj.RootFolder;
-basepath = fullfile(proj.RootFolder,'Results','fig','2026','May','04052026');
-FIG_SAVE_PATH = fullfile(proj.RootFolder,'Results','epspdf','2026','May','04052026');
+basepath = fullfile(proj.RootFolder,'Results','fig','2026','May','06052026');
+FIG_SAVE_PATH = fullfile(proj.RootFolder,'Results','epspdf','2026','May','06052026');
 MATfilePath = fullfile(proj.RootFolder,"Results","MAT");
 
-Newfig = 0;
+Newfig = 1;
 %% Savind Data in .MAT file
 
 if ~exist(MATfilePath, 'dir')
@@ -19,9 +19,9 @@ save(fullfile(MATfilePath, filename), 'out');
 
 %% to load file   %% use only when need to run data from .MAT file rather than simuluink
 % file_name = "Results1_with_SimpleBackstepping_20260502_144103.mat";
-file_name = "Results_with_New_STA_Controller_20260502_131828.mat";
+% file_name = "Results_with_New_STA_Controller_20260502_131828.mat";
 %'Results_with_SimpleBackstepping_20260502_115955.mat'
-% file_name = "Results1_with_SimpleBackstepping_20260504_105839.mat";
+file_name = "Results1_with_SimpleBackstepping_20260504_105839.mat";
 file = fullfile(MATfilePath,file_name);
 AA = load(file);
 
@@ -31,6 +31,7 @@ out = AA.out;  % use this when need to draw graph from mat file and not
 
 %% 
 t = out.tout;
+Yindex = ones(length(t),1);
 Xm = out.data.COM.World.Xe.X.Data;
 Ym = out.data.COM.World.Xe.Y.Data;
 Zm  = out.data.COM.World.Xe.Z.Data;
@@ -175,20 +176,23 @@ exportFigure(filename);
 close()
 
 %% Force tracking
-filename='Force';
+filename='Force_STA';
 
 if Newfig
-figure('Units','normalized','OuterPosition',[0 0 1 1])
-plotReducedSignal(t,u1,N,'-k',3,'Time (sec)','Force (N)',sprintf('%s %s','Front Left_{',type),filename);
-plotReducedSignal(t,u1,N,'--b',3,'Time (sec)','Force (N)',sprintf('%s %s','Front Right_{',type),filename);
-plotReducedSignal(t,u2,N,'-.r',3,'Time (sec)','Force (N)',sprintf('%s %s','Rear_{',type),filename);
-pause(3)
-close()
+    figure('Units','normalized','OuterPosition',[0 0 1 1])
+    view(3)
+    plotReducedSignal3d(t,Yindex,u1,N,'-',[0 0 0],3,'Time (sec)','Index','Force (N)',sprintf('%s %s','Front Left_{',type),filename);
+    plotReducedSignal3d(t,2*Yindex,u1,N,'-',[0 0 1],3,'Time (sec)','Index','Force (N)',sprintf('%s %s','Front Right_{',type),filename);
+    plotReducedSignal3d(t,3*Yindex,u2,N,'-.',[1 0 0],3,'Time (sec)','Index','Force (N)',sprintf('%s %s','Rear_{',type),filename);
+    % pause(3)
+    % close()
 else
-fig = openfig(fullfile(basepath,[char(filename),'.fig']),"reuse");    
-plotReducedSignal(t,u1,N,'--k',3,'Time (sec)','Force (N)',sprintf('%s %s','Front Left_{',type),filename);
-plotReducedSignal(t,u1,N,'--m',3,'Time (sec)','Force (N)',sprintf('%s %s','Front Right_{',type),filename);
-plotReducedSignal(t,u2,N,':r',3,'Time (sec)','Force (N)',sprintf('%s %s','Rear_{',type),filename);
+    % fig = openfig(fullfile(basepath,[char(filename),'.fig']),"reuse"); 
+    figure('Units','normalized','OuterPosition',[0 0 1 1])
+    view(3)
+    plotReducedSignal3d(t,4*Yindex,u1,N,'-',[0.9290 0.6940 0.1250],3,'Time (sec)','Index','Force (N)',sprintf('%s %s','Front Left_{',type),filename);
+    plotReducedSignal3d(t,5*Yindex,u1,N,'-',[0.4940 0.1840 0.5560],3,'Time (sec)','Index','Force (N)',sprintf('%s %s','Front Right_{',type),filename);
+    plotReducedSignal3d(t,6*Yindex,u2,N,':',[1 0 0],3,'Time (sec)','Index','Force (N)',sprintf('%s %s','Rear_{',type),filename);
 end
 
 %%
@@ -196,36 +200,60 @@ exportFigure(filename)
 close()
 %% ld and b tracting
 
-filename = 'ld tracking_BS';
+filename = 'ld_tracking_BS';
+if Newfig
+    figure('Units','normalized','OuterPosition',[0 0 1 1])
+    view(3)
+    plotReducedSignal3d(t,Yindex,ld1,N,'-',[0 0 0],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','ld Front Left_{',type),filename);
+    plotReducedSignal3d(t,2*Yindex,ld1,N,'-',[0 0 1],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','ld Front Right_{',type),filename);
+    plotReducedSignal3d(t,3*Yindex,ld2,N,'-.',[1 0 0],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','ld Rear_{',type),filename);
+    % pause(3)
+    % close()
+else
+    % fig = openfig(fullfile(basepath,[char(filename),'.fig']),"reuse"); 
+    figure('Units','normalized','OuterPosition',[0 0 1 1])
+    view(3)
+    plotReducedSignal3d(t,4*Yindex,ld1,N,'-',[0.9290 0.6940 0.1250],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','ld Front Left_{',type),filename);
+    plotReducedSignal3d(t,5*Yindex,ld1,N,'-',[0.4940 0.1840 0.5560],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','ld Front Right_{',type),filename);
+    plotReducedSignal3d(t,6*Yindex,ld2,N,':',[1 0 0],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','ld Rear_{',type),filename);
+end
 
-figure('Units','normalized','OuterPosition',[0 0 1 1])
-plotReducedSignal(t,ld1,N,'-k',2,'Time (sec)','Pose (m)',sprintf('%s %s','ld Front Left_{',type),filename);
-plotReducedSignal(t,ld1,N,'--b',2,'Time (sec)','Pose (m)',sprintf('%s %s','ld Front Right_{',type),filename);
-plotReducedSignal(t,ld2,N,'-.r',2,'Time (sec)','Pose (m)',sprintf('%s %s','ld Rear_{',type),filename);
 %%
-filename = 'b tracking_BS';
-
-figure('Units','normalized','OuterPosition',[0 0 1 1])
-plotReducedSignal(t,b1,N,'-k',2,'Time (sec)','Pose (m)',sprintf('%s %s','b Front Left_{',type),filename);
-plotReducedSignal(t,b1,N,'--b',2,'Time (sec)','Pose (m)',sprintf('%s %s','b Front Right_{',type),filename);
-plotReducedSignal(t,b2,N,'-r',2,'Time (sec)','Pose (m)',sprintf('%s %s','b Rear_{',type),filename);
-
+filename = 'b_Tracking_BS';
+if Newfig
+    figure('Units','normalized','OuterPosition',[0 0 1 1])
+    view(3)
+    plotReducedSignal3d(t,Yindex,b1,N,'-',[0 0 0],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','b Front Left_{',type),filename);
+    plotReducedSignal3d(t,2*Yindex,b1,N,'-',[0 0 1],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','b Front Right_{',type),filename);
+    plotReducedSignal3d(t,3*Yindex,b2,N,'-.',[1 0 0],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','b Rear_{',type),filename);
+    % pause(3)
+    % close()
+else
+    % fig = openfig(fullfile(basepath,[char(filename),'.fig']),"reuse"); 
+    figure('Units','normalized','OuterPosition',[0 0 1 1])
+    view(3)
+    plotReducedSignal3d(t,4*Yindex,b1,N,'-',[0.9290 0.6940 0.1250],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','b Front Left_{',type),filename);
+    plotReducedSignal3d(t,5*Yindex,b1,N,'-',[0.4940 0.1840 0.5560],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','b Front Right_{',type),filename);
+    plotReducedSignal3d(t,6*Yindex,b2,N,':',[1 0 0],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','b Rear_{',type),filename);
+end
 
 %% Syringe tracking
-filename = 'Syringe_position';
+filename = 'Syringe_position_BS';
 if Newfig
-figure('Units','normalized','OuterPosition',[0 0 1 1])
-plotReducedSignal(t,s1l,N,'-k',3,'Time (sec)','Pose (m)',sprintf('%s %s','Front Left_{',type),filename);
-plotReducedSignal(t,s1r,N,'--b',3,'Time (sec)','Pose (m)',sprintf('%s %s','Front Right_{',type),filename);
-plotReducedSignal(t,s2,N,'-.r',3,'Time (sec)','Pose (m)',sprintf('%s %s','Rear_{',type),filename);
-pause(3)
-close()
+    figure('Units','normalized','OuterPosition',[0 0 1 1])
+    view(3)
+    plotReducedSignal3d(t,Yindex,s1l,N,'-',[0 0 0],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','Front Left_{',type),filename);
+    plotReducedSignal3d(t,2*Yindex,s1r,N,'-',[0 0 1],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','Front Right_{',type),filename);
+    plotReducedSignal3d(t,3*Yindex,s2,N,'-.',[1 0 0],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','Rear_{',type),filename);
+    % pause(3)
+    % close()
 else
-fig = openfig(fullfile(basepath,[char(filename),'.fig']),"reuse");
-plotReducedSignal(t,s1l,N,'--k',2,'Time (sec)','Pose (m)',sprintf('%s %s','Front Left_{',type),filename);
-plotReducedSignal(t,s1r,N,'--m',2,'Time (sec)','Pose (m)',sprintf('%s %s','Front Right_{',type),filename);
-plotReducedSignal(t,s2,N,':r',2,'Time (sec)','Pose (m)',sprintf('%s %s','Rear_{',type),filename);
-
+    % fig = openfig(fullfile(basepath,[char(filename),'.fig']),"reuse"); 
+    figure('Units','normalized','OuterPosition',[0 0 1 1])
+    view(3)
+    plotReducedSignal3d(t,4*Yindex,s1l,N,'-',[0.9290 0.6940 0.1250],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','Front Left_{',type),filename);
+    plotReducedSignal3d(t,5*Yindex,s1r,N,'-',[0.4940 0.1840 0.5560],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','Front Right_{',type),filename);
+    plotReducedSignal3d(t,6*Yindex,s2,N,':',[1 0 0],3,'Time (sec)','Index','Position (m)',sprintf('%s %s','Rear_{',type),filename);
 end
 %%
 exportFigure(filename);
@@ -289,3 +317,37 @@ ZSmoothness_STA2 = smoothness_second_diff(ZC)
 ZSmoothness_STA1 = smoothness_diff(ZC)
 PSmoothness_STA2 = smoothness_second_diff(PC)
 PSmoothness_STA1 = smoothness_diff(PC)
+%%
+filename = 'XZ_plot';
+
+% figure('Units','normalized','OuterPosition',[0 0 1 1])
+fig = openfig(fullfile(basepath,[char(filename),'.fig']),"reuse");
+%%
+plotReducedSignal(Xm,Zm,1000,'-r',2,'X (m)','Z (m)','Tracking_{BS}',filename);
+%%
+exportFigure(filename);
+close
+
+%% 
+img =im2double(imread("images\Picture4.png"));
+a = min(img(:));b =  max(img(:));
+%%
+scale = 0.25;
+step = 50000;
+for k=1:step:length(t)
+    xi = Xm(k);
+    zi = Zm(k);
+
+    image([xi-scale xi+scale], [zi-scale zi+scale],img)
+end
+%%
+[img,~,alpha] = imread("images\Picture3.png");
+%% 
+alpha1 = any(img <0.95, 3);
+
+%%
+imshow(img);
+%%
+hold on
+h=imshow(img);
+set(h,'AlphaData',alpha);

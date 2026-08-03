@@ -3,6 +3,9 @@
 *.autosave
 
 slprj/
+Results/**/*.mat
+Results/**/*.fig
+
 
 
 # Data
@@ -21,3 +24,4 @@ slprj/
 *.mp4
 *.avi
 *.mov
+*.mkv

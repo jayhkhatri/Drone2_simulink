@@ -159,3 +159,57 @@ end
 
 close(outputVideo);
 disp('✅ Combined video saved as combined_2x2.avi');
+%% collision viewer
+TR = stlread('Drone_collisionmodel.STL');
+% extract verices
+P = TR.Points;
+% comput convex hull
+K = convhull(P(:,1),P(:,2),P(:,3));
+%plot orginal mess
+figure
+
+trisurf(TR.ConnectivityList,...
+        P(:,1),P(:,2),P(:,3),...
+        'FaceColor',[0.7 0.7 0.7],...
+        'EdgeColor','none');
+
+axis equal
+camlight
+lighting gouraud
+title('Original Geometry')
+
+% plot convex hull
+figure
+
+trisurf(K,...
+        P(:,1),P(:,2),P(:,3),...
+        'FaceColor','red',...
+        'FaceAlpha',0.4,...
+        'EdgeColor','black');
+
+axis equal
+camlight
+lighting gouraud
+title('Convex Hull')
+% both
+figure
+hold on
+
+% Original
+trisurf(TR.ConnectivityList,...
+        P(:,1),P(:,2),P(:,3),...
+        'FaceColor',[0.7 0.7 0.7],...
+        'FaceAlpha',0.25,...
+        'EdgeColor','none');
+
+% Convex Hull
+trisurf(K,...
+        P(:,1),P(:,2),P(:,3),...
+        'FaceColor','red',...
+        'FaceAlpha',0.5,...
+        'EdgeColor','black');
+
+axis equal
+camlight
+lighting gouraud
+rotate3d on
