@@ -3,9 +3,9 @@
 *.autosave
 
 slprj/
-Results/**/*.mat
-Results/**/*.fig
-
+#Results/**/*.mat
+#Results/**/*.fig
+Results/
 
 
 # Data
